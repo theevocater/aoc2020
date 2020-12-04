@@ -14,10 +14,15 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     inputs = []
     with open(args.input) as f:
-        inputs = [line.rstrip() for line in f]
+        inputs = [int(line.rstrip()) for line in f]
 
+    target = 2020
+    seen = set()
     for i in inputs:
-        print(i)
+        seen.add(i)
+        pair = target - i
+        if pair in seen:
+            print(f'{i} + {pair} = {target}, {i*pair}')
 
     return 0
 
