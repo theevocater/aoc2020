@@ -2,6 +2,7 @@
 import argparse
 from typing import List
 from typing import Optional
+from typing import Set
 
 
 def main(argv: Optional[List[str]] = None) -> int:
@@ -14,10 +15,18 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     inputs = []
     with open(args.input) as f:
-        inputs = [line.rstrip() for line in f]
+        inputs = [int(line.rstrip()) for line in f]
 
+    target = 2020
+    seen: Set[int] = set()
     for i in inputs:
-        print(i)
+        sub_target = target - i
+        for s in seen:
+            pair = sub_target - s
+            if pair in seen:
+                print(f'{i} + {s} + {pair} = {target}, {i*s*pair}')
+                break
+        seen.add(i)
 
     return 0
 
